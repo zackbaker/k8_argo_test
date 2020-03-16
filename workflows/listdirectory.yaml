@@ -1,16 +1,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: CronWorkflow
 metadata:
-  name: test-cron-wf
+  name: list-directory-
 spec:
-  schedule: "* */1 * * *"
+  schedule: "* * * * *"
   concurrencyPolicy: "Forbid"
   startingDeadlineSeconds: 0
   workflowSpec:
-    entrypoint: whalesay
+    entrypoint: list-directory
     templates:
-    - name: whalesay
+    - name: list-directory
       container:
         image: alpine:3.6
         command: [sh, -c]
-        args: ["date; sleep 90"]
+        args: ["ls"]
