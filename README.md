@@ -47,6 +47,6 @@ argocd account update-password
 
 - Next let's get CD syncing with Workflow
 ```bash
-argocd app create hello-world --repo https://github.com/zackbaker/k8_argo_test.git --path workflows --dest-server https://kubernetes.default.svc --dest-namespace argo
-argocd app sync hello-world
+argocd app create workflows --repo https://github.com/zackbaker/k8_argo_test.git --path workflows --dest-server https://kubernetes.default.svc --dest-namespace argo
+argocd app sync workflows
 ```
