@@ -5,3 +5,6 @@ def run():
         print('It is Heads!')
     else:
         print('It is Tails!')
+
+if __name__ == '__main__':
+    run()

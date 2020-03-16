@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: CronWorkflow
+metadata:
+  name: testing-workflow
+spec:
+  schedule: "* * * * *"
+  concurrencyPolicy: "Forbid"
+  startingDeadlineSeconds: 0
+  workflowSpec:
+    entrypoint: counting
+    templates:
+    - name: counting
+      container:
+        image: zackbaker/k8_argo_testing:latest
+        command: [python, count.py]
+    - name: coin-flip
+      container:
+        image: zackbaker/k8_argo_testing:latest
+        command: [python, coinflip.py]
