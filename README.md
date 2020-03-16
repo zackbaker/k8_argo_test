@@ -3,10 +3,10 @@ Testing out Argo on k8
 
 ## Setup Instructions
 - Docker
--- Go to Preferences
--- Select Kubernetes Tab
--- Check Enable Kubernetes
--- Wait for restart
+- - Go to Preferences
+- - Select Kubernetes Tab
+- - Check Enable Kubernetes
+- - Wait for restart
 
 - Run the following commands in terminal (MacOS)
 ```bash
