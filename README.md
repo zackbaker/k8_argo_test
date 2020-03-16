@@ -3,10 +3,10 @@ Testing out Argo on k8
 
 ## Setup Instructions
 - Docker
-- - Go to Preferences
-- - Select Kubernetes Tab
-- - Check Enable Kubernetes
-- - Wait for restart
+-- Go to Preferences
+-- Select Kubernetes Tab
+-- Check Enable Kubernetes
+-- Wait for restart
 
 - Run the following commands in terminal (MacOS)
 ```bash
@@ -30,17 +30,23 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
 kubectl -n argo port-forward deployment/argo-server 2746:2746
 kubectl -n argocd port-forward svc/argocd-server 8080:443
 ```
-- - Then go to [local host on port 2746](http://localhost/:2746) to access argo workflow
-- - And go to [local host on port 8080](http://localhost/:8080) to access argo CD
+- Then go to [local host on port 2746](http://localhost/:2746) to access argo workflow
+- And go to [local host on port 8080](http://localhost/:8080) to access argo CD
 
-- - Next we will find our password
+- Next we will find our password
 ```bash
 kubectl get pods -n argocd -l app.kubernetes.io/name=argocd-server -o name | cut -d'/' -f 2
 ```
 
-- - Then we will login using the password found above
+- Then we will login using the password found above
 ```bash
 argocd login localhost:8080
 # Change password
 argocd account update-password
+```
+
+- Next let's get CD syncing with Workflow
+```bash
+argocd app create hello-world --repo https://github.com/zackbaker/k8_argo_test.git --path workflows --dest-server https://kubernetes.default.svc --dest-namespace argo
+argocd app sync hello-world
 ```
