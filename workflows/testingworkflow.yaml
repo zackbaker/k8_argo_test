@@ -7,13 +7,23 @@ spec:
   concurrencyPolicy: "Forbid"
   startingDeadlineSeconds: 0
   workflowSpec:
-    entrypoint: counting
+    entrypoint: workflow
     templates:
-    - name: counting
+    - name: docker
+      inputs:
+        parameters:
+        - name: script
       container:
         image: zackbaker/k8_argo_test:latest
-        command: [python, count.py]
-    - name: coin-flip
-      container:
-        image: zackbaker/k8_argo_test:latest
-        command: [python, coinflip.py]
+        command: [python, {inputs.parameters.script}]
+    - name: workflow
+    dag:
+        task:
+        - name: counting
+        template: docker
+        arguments:
+          parameters: [{name: script, value: count.py}]
+        - name: coinflip
+        template: docker
+        arguments:
+          parameters: [{name: script, value: coinflip.py}]
