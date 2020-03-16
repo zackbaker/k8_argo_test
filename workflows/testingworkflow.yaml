@@ -6,24 +6,23 @@ spec:
   schedule: "* * * * *"
   concurrencyPolicy: "Forbid"
   startingDeadlineSeconds: 0
-  workflowSpec:
-    entrypoint: workflow
-    templates:
-    - name: docker
-      inputs:
-        parameters:
-        - name: script
-      container:
-        image: zackbaker/k8_argo_test:latest
-        command: [python, {inputs.parameters.script}]
+  entrypoint: workflow
+  templates:
+  - name: docker
+    inputs:
+      parameters:
+      - name: script
+    container:
+      image: zackbaker/k8_argo_test:latest
+      command: [python, {inputs.parameters.script}]
     - name: workflow
-    dag:
+      dag:
         task:
         - name: counting
-        template: docker
-        arguments:
-          parameters: [{name: script, value: count.py}]
+          template: docker
+          arguments:
+            parameters: [{name: script, value: count.py}]
         - name: coinflip
-        template: docker
-        arguments:
-          parameters: [{name: script, value: coinflip.py}]
+          template: docker
+          arguments:
+            parameters: [{name: script, value: coinflip.py}]
