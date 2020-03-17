@@ -25,5 +25,5 @@ spec:
           - name: script
       container:
         image: zackbaker/k8_argo_test:latest
-        command: [python]
-        args: [{{inputs.parameters.script}}]
+        command: [sh, -c]
+        args: [python, count.py]
