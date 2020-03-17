@@ -16,6 +16,10 @@ spec:
           template: python-container
           arguments:
             parameters: [{name: script, value: count.py}]
+        - name: coinflip
+          template: python-container
+          arguments:
+            parameters: [{name: script, value: coinflip.py}]
 
     - name: python-container
       inputs:
