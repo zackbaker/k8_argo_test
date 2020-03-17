@@ -14,8 +14,8 @@ Testing out Argo on k8
 brew tap argoproj/tap
 brew install argoproj/tap/argo
 brew install argoproj/tap/argocd
-brew install helm
 # Come back to help installation
+# brew install helm
 # helm repo add argo https://argoproj.github.io/argo-helm
 # Add namespace and install Argo Workflow
 kubectl create namespace argo

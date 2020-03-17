@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: CronWorkflow
 metadata:
-  name: testing-workflow
+  name: workflow
 spec:
   schedule: "* * * * *"
   concurrencyPolicy: "Forbid"
@@ -9,21 +9,7 @@ spec:
   workflowSpec:
     entrypoint: workflow
     templates:
-    - name: docker
-      inputs:
-        parameters:
-        - name: script
+    - name: workflow
       container:
         image: zackbaker/k8_argo_test:latest
-        command: [python, {inputs.parameters.script}]
-    - name: workflow
-    dag:
-        task:
-        - name: counting
-          template: docker
-          arguments:
-            parameters: [{name: script, value: count.py}]
-        - name: coinflip
-          template: docker
-          arguments:
-            parameters: [{name: script, value: coinflip.py}]
+        command: [python, count.py]
