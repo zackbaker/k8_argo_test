@@ -14,10 +14,10 @@ spec:
         tasks:
         - name: count
           template: python-container
-        #   arguments:
-        #     parameters:
-        #       - name: script
-        #         value: "count.py"
+          arguments:
+            parameters:
+              - name: script
+                value: "count.py"
 
     - name: python-container
       inputs:
