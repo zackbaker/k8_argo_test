@@ -26,4 +26,4 @@ spec:
       container:
         image: zackbaker/k8_argo_test:latest
         command: [python]
-        args: {{inputs.parameters.script}}
+        args: [{{inputs.parameters.script}}]
