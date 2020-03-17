@@ -23,4 +23,4 @@ spec:
           - name: script
       container:
         image: zackbaker/k8_argo_test:latest
-        command: [python, {{inputs.parameters.script}}]
+        command: [python, {inputs.parameters.script}]
