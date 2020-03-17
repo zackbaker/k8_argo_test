@@ -6,13 +6,16 @@ spec:
   schedule: "* * * * *"
   concurrencyPolicy: "Forbid"
   startingDeadlineSeconds: 0
-  templates:
-    - name: python-container
-      container:
-        image: zackbaker/k8_argo_test:latest
-        command: [python, count.py]
   workflowSpec:
     entrypoint: count
     templates:
     - name: count
-      template: python-container
+      dag:
+        tasks:
+        - name: count
+          template: python-container
+
+    - name: python-container
+      container:
+        image: zackbaker/k8_argo_test:latest
+        command: [python, count.py]
