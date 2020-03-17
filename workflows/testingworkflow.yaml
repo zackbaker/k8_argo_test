@@ -20,9 +20,9 @@ spec:
         #         value: "count.py"
 
     - name: python-container
-    #   inputs:
-    #     parameters:
-    #       - name: script
+      inputs:
+        parameters:
+          - name: script
       container:
         image: zackbaker/k8_argo_test:latest
         command: [python, count.py]
