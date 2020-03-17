@@ -21,6 +21,7 @@ spec:
       inputs:
         parameters:
           - name: script
+            default: "print('Must provide file')"
       container:
         image: zackbaker/k8_argo_test:latest
         command: [python, {inputs.parameters.script}]
