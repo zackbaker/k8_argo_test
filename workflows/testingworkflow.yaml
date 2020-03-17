@@ -19,7 +19,7 @@ spec:
         - name: coinflip
           template: python-container
           arguments:
-            parameters: [{name: python-script, value: /coinflip/coinflip.py}]
+            parameters: [{name: python-script, value: coinflip/coinflip.py}]
         # - name: tails
         #   dependencies: [coinflip]
         #   template: python-container
