@@ -23,7 +23,7 @@ spec:
         - name: tails
           dependencies: [coinflip]
           template: python-container
-          when: "{{tasks.coinflip.output.results}} == tails"
+        #   when: "{{tasks.coinflip.output.results}} == tails"
           arguments:
             parameters: [{name: python-script, value: coinflip/tails.py}]
         # - name: heads
