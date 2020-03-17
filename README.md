@@ -25,10 +25,10 @@ kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 ```
 
-- In a seperate terminal tab/screen for each command
+- Run the following commands to forward ports and access the UI and then press ctrl+a d
 ```bash
-kubectl -n argo port-forward deployment/argo-server 2746:2746
-kubectl -n argocd port-forward svc/argocd-server 8080:443
+screen kubectl -n argo port-forward deployment/argo-server 2746:2746
+screen kubectl -n argocd port-forward svc/argocd-server 8080:443
 ```
 - Then go to [local host on port 2746](http://localhost/:2746) to access argo workflow
 - And go to [local host on port 8080](http://localhost/:8080) to access argo CD
