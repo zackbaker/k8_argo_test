@@ -14,8 +14,15 @@ spec:
         tasks:
         - name: count
           template: python-container
+          arguments:
+            parameters:
+              - name: script
+                value: count.py
 
     - name: python-container
+      inputs:
+        parameters:
+          - name: script
       container:
         image: zackbaker/k8_argo_test:latest
-        command: [python, count.py]
+        command: [python, {{inputs.parameters.script}}]
