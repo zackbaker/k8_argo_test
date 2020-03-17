@@ -20,14 +20,14 @@ spec:
           template: python-container
           arguments:
             parameters: [{name: python-script, value: coinflip.py}]
-        - name: tails
-          dependencies: [coinflip]
-          template: coinflip
-        - name: heads
-          dependencies: [coinflip]
-          template: python-container
-          arguments:
-            parameters: [{name: python-script, value: print('it is heads!')}]
+        # - name: tails
+        #   dependencies: [coinflip]
+        #   template: coinflip
+        # - name: heads
+        #   dependencies: [coinflip]
+        #   template: python-container
+        #   arguments:
+        #     parameters: [{name: python-script, value: print('it is heads!')}]
 
     - name: python-container
       inputs:
