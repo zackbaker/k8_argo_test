@@ -15,16 +15,24 @@ spec:
         - name: count
           template: python-container
           arguments:
-            parameters: [{name: script, value: count.py}]
+            parameters: [{name: python-script, value: count.py}]
         - name: coinflip
           template: python-container
           arguments:
-            parameters: [{name: script, value: coinflip.py}]
+            parameters: [{name: python-script, value: coinflip.py}]
+        - name: tails
+          dependencies: [coinflip]
+          template: coinflip
+        - name: heads
+          dependencies: [coinflip]
+          template: python-container
+          arguments:
+            parameters: [{name: python-script, value: print('it is heads!')}]
 
     - name: python-container
       inputs:
         parameters:
-          - name: script
+          - name: python-script
       container:
         image: zackbaker/k8_argo_test:latest
-        command: [python, "{{inputs.parameters.script}}"]
+        command: [python, "{{inputs.parameters.python-script}}"]

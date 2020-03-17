@@ -1,10 +1,12 @@
 from random import Random
 
 def run():
-    if Random.randint(0, 1) == 1:
-        print('It is Heads!')
+    random = Random()
+    if random.randint(0, 1) == 1:
+        result = 'heads'
     else:
-        print('It is Tails!')
+        result = 'tails'
+    print(result)
 
 if __name__ == '__main__':
     run()
