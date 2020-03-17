@@ -22,14 +22,16 @@ spec:
             parameters: [{name: python-script, value: coinflip.py}]
         - name: tails
           dependencies: [coinflip]
-          template: coinflip
+          template: python-container
           when: "{{tasks.coinflip.output.results}} == tails"
-        # - name: heads
-        #   dependencies: [coinflip]
-        #   template: python-container
-        #   when: "{{tasks.coinflip.output.results}} == heads"
-        #   arguments:
-        #     parameters: [{name: python-script, value: print('it is heads!')}]
+          arguments:
+            parameters: [{name: python-script, value: /coinflip/tails.py}]
+        - name: heads
+          dependencies: [coinflip]
+          template: python-container
+          when: "{{tasks.coinflip.output.results}} == heads"
+          arguments:
+            parameters: [{name: python-script, value: /coinflip/heads.py}]
 
     - name: python-container
       inputs:
