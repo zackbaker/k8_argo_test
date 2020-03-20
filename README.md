@@ -14,21 +14,24 @@ Testing out Argo on k8
 brew tap argoproj/tap
 brew install argoproj/tap/argo
 brew install argoproj/tap/argocd
-# Come back to help installation
-# brew install helm
-# helm repo add argo https://argoproj.github.io/argo-helm
+
+# install helm and add argo repo
+brew install helm
+helm repo add argo https://argoproj.github.io/argo-helm
+
 # Add namespace and install Argo Workflow
 kubectl create namespace argo
-kubectl apply -n argo -f https://raw.githubusercontent.com/argoproj/argo/stable/manifests/install.yaml
+helm install argo argo/argo -n argo
+
 # Add namespace and install Argo CD
 kubectl create namespace argocd
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+helm install argocd argo/argo-cd -n argocd
 ```
 
 - Run the following commands to forward ports and access the UI and then press ctrl+a d
 ```bash
 screen kubectl -n argo port-forward deployment/argo-server 2746:2746
-screen kubectl -n argocd port-forward svc/argocd-server 8080:443
+screen kubectl -n argocd port-forward deployment/argocd-server 8080:8080
 ```
 - Then go to [local host on port 2746](http://localhost/:2746) to access argo workflow
 - And go to [local host on port 8080](http://localhost/:8080) to access argo CD
@@ -38,7 +41,7 @@ screen kubectl -n argocd port-forward svc/argocd-server 8080:443
 kubectl get pods -n argocd -l app.kubernetes.io/name=argocd-server -o name | cut -d'/' -f 2
 ```
 
-- Then we will login using the password found above
+- Then we will login using the password found above, username is admin
 ```bash
 argocd login localhost:8080
 # Change password
