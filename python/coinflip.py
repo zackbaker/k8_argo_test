@@ -10,3 +10,5 @@ def run():
 
 if __name__ == '__main__':
     run()
+
+    rdd.ctx._jvm.org.apache.spark.mllib.api.python.SerDe.pythonToJava(rdd._jrdd, True)

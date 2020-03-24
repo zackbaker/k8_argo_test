@@ -33,8 +33,8 @@ helm install argocd argo/argo-cd -n argocd
 screen kubectl -n argo port-forward deployment/argo-server 2746:2746
 screen kubectl -n argocd port-forward deployment/argocd-server 8080:8080
 ```
-- Then go to [local host on port 2746](http://localhost/:2746) to access argo workflow
-- And go to [local host on port 8080](http://localhost/:8080) to access argo CD
+- Then go to [local host on port 2746](http://localhost:2746) to access argo workflow
+- And go to [local host on port 8080](http://localhost:8080) to access argo CD
 
 - Next we will find our password
 ```bash
