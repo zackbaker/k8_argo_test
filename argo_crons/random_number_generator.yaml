@@ -3,7 +3,7 @@ kind: CronWorkflow
 metadata:
   name: random-number-generator
 spec:
-  schedule: "*/5 * * * *"
+  schedule: "*/1 * * * *"
   concurrencyPolicy: "Forbid"
   startingDeadlineSeconds: 0
   workflowSpec:
@@ -11,7 +11,7 @@ spec:
     templates:
     - name: list-directory
       container:
-        image: alpine:3.6
+        image: debian:9.4
         command: [bash]
         source: |
           DATE=$(date "+%b_%d_%Y") &&
