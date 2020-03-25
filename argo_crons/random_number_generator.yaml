@@ -22,4 +22,4 @@ spec:
           DATE=$(date "+%b_%d_%Y") |
           TIMESTAMP=$(date "+%s") |
           NUMBER=$(($RANDOM%10000+10000)) |
-          ECHO "$NUMBER" >> random_number-${DATE}_${TIMESTAMP}.txt
+          echo "$NUMBER" >> random_number-${DATE}_${TIMESTAMP}.txt
