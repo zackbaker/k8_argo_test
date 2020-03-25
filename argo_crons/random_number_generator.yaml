@@ -10,11 +10,16 @@ spec:
     entrypoint: list-directory
     templates:
     - name: list-directory
-      container:
+      steps:
+      - - name: generate-random-number
+          template: gen-file
+
+    - name: gen-file
+      script:
         image: debian:9.4
         command: [bash]
         source: |
-          DATE=$(date "+%b_%d_%Y") &&
-          TIMESTAMP=$(date "+%s") &&
-          NUMBER=$(($RANDOM%10000+10000)) &&
+          DATE=$(date "+%b_%d_%Y") |
+          TIMESTAMP=$(date "+%s") |
+          NUMBER=$(($RANDOM%10000+10000)) |
           ECHO "$NUMBER" >> random_number-${DATE}_${TIMESTAMP}.txt
