@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: CronWorkflow
+metadata:
+  name: random-number-generator
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: "Forbid"
+  startingDeadlineSeconds: 0
+  workflowSpec:
+    entrypoint: list-directory
+    templates:
+    - name: list-directory
+      container:
+        image: alpine:3.6
+        command: [bash]
+        source: |
+          DATE=$(date "+%b_%d_%Y") &&
+          TIMESTAMP=$(date "+%s") &&
+          NUMBER=$(($RANDOM%10000+10000)) &&
+          ECHO "$NUMBER" >> random_number-${DATE}_${TIMESTAMP}.txt

@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Gateway
+metadata:
+  name: random-number-gateway
+  labels:
+    # gateway controller with instanceId "argo-events" will process this gateway
+    gateways.argoproj.io/gateway-controller-instanceid: argo-events
+spec:
+  type: file
+  eventSourceRef:
+    name: random-number-event-source
+  template:
+    metadata:
+      name: random-number-gateway
+      labels:
+        gateway-name: random-number-gateway
+    spec:
+      containers:
+        - name: gateway-client
+          image: argoproj/gateway-client:v0.13.0
+          imagePullPolicy: Always
+          command: ["/bin/gateway-client"]
+        - name: file-events
+          image: argoproj/file-gateway:v0.13.0
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: files-store
+              mountPath: /mnt/file-store
+      volumes:
+        - name:
+          persistentVolumeClaim:
+            claimName: files-store
+      serviceAccountName: argo-events-sa
+  subscribers:
+    http:
+      - "http://file-sensor.argo-events.svc:9300/"
