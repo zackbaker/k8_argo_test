@@ -7,9 +7,9 @@ spec:
   concurrencyPolicy: "Forbid"
   startingDeadlineSeconds: 0
   workflowSpec:
-    entrypoint: list-directory
+    entrypoint: random-number-generator
     templates:
-    - name: list-directory
+    - name: random-number-generator
       steps:
       - - name: generate-random-number
           template: gen-file
@@ -22,4 +22,12 @@ spec:
           DATE=$(date "+%b_%d_%Y") |
           TIMESTAMP=$(date "+%s") |
           NUMBER=$(($RANDOM%10000+10000)) |
-          echo "$NUMBER" >> random_number-${DATE}_${TIMESTAMP}.txt
+          echo "$NUMBER" >> /mnt/file-store/random_number-${DATE}_${TIMESTAMP}.txt
+        volumeMounts:
+          - name: workdir
+            mountPath: /mnt/file-store
+
+    volumes:
+      - name: workdir
+        persistentVolumeClaim:
+          claimName: file-store

@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Gateway
 metadata:
-  name: random-number-gateway
+  name: file-gateway
   labels:
     # gateway controller with instanceId "argo-events" will process this gateway
     gateways.argoproj.io/gateway-controller-instanceid: argo-events
@@ -24,12 +24,12 @@ spec:
           image: argoproj/file-gateway:v0.13.0
           imagePullPolicy: Always
           volumeMounts:
-            - name: files-store
-              mountPath: /mnt/file-store
+            - mountPath: /mnt/file-store
+              name: workdir
       volumes:
-        - name:
+        - name: workdir
           persistentVolumeClaim:
-            claimName: files-store
+            claimName: file-store
       serviceAccountName: argo-events-sa
   subscribers:
     http:

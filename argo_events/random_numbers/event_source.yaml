@@ -8,7 +8,7 @@ spec:
     random-numbers:
       watchPathConfig:
         # directory to watch
-        directory: "/file-store/"
+        directory: "/mnt/file-store/"
         # path to watch
         pathRegexp: "random_number*.txt"
       # type of the event
