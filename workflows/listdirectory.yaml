@@ -9,7 +9,7 @@ spec:
   workflowSpec:
     entrypoint: list-directory
     templates:
-    - - name: list-directory
+    - name: list-directory
       container:
         image: alpine:3.6
         command: [sh, -c]
