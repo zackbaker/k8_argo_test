@@ -3,7 +3,7 @@ kind: CronWorkflow
 metadata:
   name: workflow
 spec:
-  schedule: "* * * * *"
+  schedule: "*/10 * * * *"
   concurrencyPolicy: "Forbid"
   startingDeadlineSeconds: 0
   workflowSpec:

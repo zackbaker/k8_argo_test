@@ -3,13 +3,13 @@ kind: CronWorkflow
 metadata:
   name: list-directory
 spec:
-  schedule: "* * * * *"
+  schedule: "*/10 * * * *"
   concurrencyPolicy: "Forbid"
   startingDeadlineSeconds: 0
   workflowSpec:
     entrypoint: list-directory
     templates:
-    - name: list-directory
+    - - name: list-directory
       container:
         image: alpine:3.6
         command: [sh, -c]

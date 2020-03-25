@@ -13,24 +13,28 @@ spec:
       dag:
         tasks:
         - name: dep-1
-          template: python-container
+          template: python-container-2
           arguments:
             parameters: [{name: python-script, value: dependencies/dep_1.py}]
         - name: dep-2
           template: python-container
           arguments:
             parameters: [{name: python-script, value: dependencies/dep_2.py}]
+          dependencies: [dep-1]
         - name: dep-3
-          template: python-container
+          template: python-container-3
           arguments:
             parameters: [{name: python-script, value: dependencies/dep_3.py}]
-          dependencies: [dep-1]
+          dependencies: [dep-2]
         - name: dep-4
-          template: python-container
+          template: python-container-3
           arguments:
-            parameters: [{name: python-script, value: dependencies/dep_4.py}]
+            parameters: [
+              {name: python-script, value: dependencies/dep_4.py}
+            ]
+          dependencies: [dep-2]
 
-    - name: python-container
+    - name: python-container-3
       inputs:
         parameters:
           - name: python-script
