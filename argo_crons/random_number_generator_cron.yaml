@@ -20,11 +20,8 @@ spec:
         image: debian:9.4
         command: [bash]
         source: |
-          FILENAME=random_number- |
-          CURRENT_TIME=$(date "+%Y.%m.%d-%H.%M.%S") |
           NUMBER=$(($RANDOM%10000+10000)) |
-          echo "Creating file random_number-$CURRENT_TIME.txt" |
-          echo "$NUMBER" >> /mnt/file-store/$FILENAME$CURRENT_TIME.txt
+          echo "$NUMBER" >> /mnt/file-store/random_number-$(date "+%Y.%m.%d-%H.%M.%S").txt
         volumeMounts:
           - name: workdir
             mountPath: /mnt/file-store
