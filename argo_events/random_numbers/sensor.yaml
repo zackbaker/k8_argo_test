@@ -43,6 +43,13 @@ spec:
                       command: [python, print_random_number.py]
                       args:
                         - "File Name" # Get's replaced by event source
+                      volumeMounts:
+                        - mountPath: /mnt/file-store
+                          name: workdir
+                volumes:
+                  - name: workdir
+                    persistentVolumeClaim:
+                      claimName: file-store
           parameters:
             - src:
                 dependencyName: test-dep
