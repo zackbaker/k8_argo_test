@@ -33,7 +33,7 @@ kubectl apply -f https://raw.githubusercontent.com/argoproj/argo-events/master/h
 ```
 - Add storage for argo to share
 ```bash
-kubectl create -f argo_settings/volume.yaml
+kubectl create -f argo_settings/pvc.yaml -n argo-events
 ```
 
 - Add argo events events
@@ -64,10 +64,6 @@ argocd account update-password
 # Regular worflows
 argocd app create workflows --repo https://github.com/zackbaker/k8_argo_test.git --path argo_crons --dest-server https://kubernetes.default.svc --dest-namespace argo
 argocd app sync workflows
-
-# Events workflow
-argocd app create file-event --repo https://github.com/zackbaker/k8_argo_test.git --path argo_events/random_numbers --dest-server https://kubernetes.default.svc --dest-namespace argo-events
-argocd app sync file-event
 ```
 
 - Then go to [local host on port 2746](http://localhost:2746) to access argo workflow

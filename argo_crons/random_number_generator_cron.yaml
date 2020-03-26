@@ -23,7 +23,7 @@ spec:
           DATE=$(date "+%b_%d_%Y") |
           TIMESTAMP=$(date "+%s") |
           NUMBER=$(($RANDOM%10000+10000)) |
-          echo "$NUMBER" >> /mnt/file-store/random_number-${DATE}_${TIMESTAMP}.txt
+          echo "$NUMBER" >> /mnt/file-store/random_number-$(DATE)_$(TIMESTAMP).txt
         volumeMounts:
           - name: workdir
             mountPath: /mnt/file-store
