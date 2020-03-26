@@ -20,8 +20,7 @@ spec:
         image: debian:9.4
         command: [bash]
         source: |
-          NUMBER=$(($RANDOM%10000+10000)) |
-          echo "$NUMBER" >> /mnt/file-store/random_number-$(date "+%Y.%m.%d-%H.%M.%S").txt
+          echo $(($RANDOM%10000+10000)) >> /mnt/file-store/random_number-$(date "+%Y.%m.%d-%H.%M.%S").txt
         volumeMounts:
           - name: workdir
             mountPath: /mnt/file-store
