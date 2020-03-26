@@ -2,6 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: CronWorkflow
 metadata:
   name: random-number-generator
+  namespace: argo-events
 spec:
   schedule: "*/1 * * * *"
   concurrencyPolicy: "Forbid"
