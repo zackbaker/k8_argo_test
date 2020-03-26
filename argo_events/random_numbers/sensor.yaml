@@ -35,17 +35,16 @@ spec:
               metadata:
                 generateName: random-number-echo-
               spec:
-                entrypoint: whalesay
+                entrypoint: echo-num
                 templates:
-                  -
+                  - name: echo-num
                     container:
+                      image: "zackbaker/k8_argo_test:latest"
+                      command: [python, print_random_number.py]
                       args:
-                        - "hello" # it will get replaced by the event payload
-                      command:
-                        - cowsay
-                      image: "docker/whalesay:latest"
-                    name: whalesay
+                        - "File Name" # Get's replaced by event source
           parameters:
             - src:
                 dependencyName: test-dep
+                dataKey: name
               dest: spec.templates.0.container.args.0

@@ -10,7 +10,7 @@ spec:
         # directory to watch
         directory: "/mnt/file-store/"
         # path to watch
-        pathRegexp: "random_number*.txt"
+        pathRegexp: "(random_number.*)+(.txt)$"
       # type of the event
       # supported types are: CREATE, WRITE, REMOVE, RENAME, CHMOD
       eventType: "CREATE"
