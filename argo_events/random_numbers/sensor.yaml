@@ -33,25 +33,55 @@ spec:
               apiVersion: argoproj.io/v1alpha1
               kind: Workflow
               metadata:
-                generateName: random-number-echo-
+                generateName: random-number-
               spec:
-                entrypoint: echo-num
+                entrypoint: handle-num
+                arguments:
+                  parameters:
+                    - name: file-path
+                      value: "file_path" # will be overridden
                 templates:
-                  - name: echo-num
+                  - name: handle-num
+                    dag:
+                      tasks:
+                        # Task
+                        - name: print-number
+                          template: python-container-3
+                          arguments:
+                            parameters: [
+                              {name: python-script, value: rand_number/print_random_number.py},
+                              {name: file-path, value: "{{workflow.parameters.file-path}}"}
+                            ]
+                        # Task
+                        - name: delete-file
+                          dependencies: [print-number]
+                          template: python-container-3
+                          arguments:
+                            parameters: [
+                              {name: python-script, value: rand_number/delete_file.py},
+                              {name: file-path, value: "{{workflow.parameters.file-path}}"}
+                            ]
+                  # Container template
+                  - name: python-container-3
+                    inputs:
+                      parameters:
+                        - name: python-script
+                        - name: file-path
                     container:
-                      image: "zackbaker/k8_argo_test:latest"
-                      command: [python, print_random_number.py]
-                      args:
-                        - "File Name" # Get's replaced by event source
+                      image: zackbaker/k8_argo_test:latest
+                      command: [python, "{{inputs.parameters.python-script}}"]
+                      args: ["{{inputs.parameters.file-path}}"]
                       volumeMounts:
                         - mountPath: /mnt/file-store
-                          name: workdir
+                          name: file-store
+
                 volumes:
-                  - name: workdir
+                  - name: file-store
                     persistentVolumeClaim:
                       claimName: file-store
+
           parameters:
             - src:
                 dependencyName: test-dep
                 dataKey: name
-              dest: spec.templates.0.container.args.0
+              dest: spec.arguments.parameters.0.value
