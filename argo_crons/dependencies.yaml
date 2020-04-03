@@ -13,11 +13,11 @@ spec:
         dag:
           tasks:
           - name: dep-1
-            template: python-container-2
+            template: python-container-3
             arguments:
               parameters: [{name: python-script, value: dependencies/dep_1.py}]
           - name: dep-2
-            template: python-container
+            template: python-container-3
             arguments:
               parameters: [{name: python-script, value: dependencies/dep_2.py}]
             dependencies: [dep-1]
@@ -31,11 +31,24 @@ spec:
             arguments:
               parameters: [{name: python-script, value: dependencies/dep_4.py}]
             dependencies: [dep-2]
+          - name: record-stats
+            template: python-container-3
+            arguments:
+              parameters: [
+                {name: python-script, value: workflow_stats.py},
+                {name: python-args, value: "
+                  --workflow_name {{ workflow.name }}
+                  --creation_time {{ workflow.creationTimestamp }}
+                  --duration {{ workflow.duration }}
+                  --failures {{ workflow.failures }}"}
+              ]
 
       - name: python-container-3
         inputs:
           parameters:
             - name: python-script
+            - name: python-args
         container:
           image: zackbaker/k8_argo_test:latest
-          command: [python, "{{inputs.parameters.python-script}}"]
+          command: [python, "{{ inputs.parameters.python-script }}"]
+          args: ["{{ inputs.parameters.python-args }}"]
