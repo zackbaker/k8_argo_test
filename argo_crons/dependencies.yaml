@@ -37,10 +37,10 @@ spec:
               parameters: [
                 {name: python-script, value: workflow_stats.py},
                 {name: python-args, value: "
-                  --workflow_name {{ workflow.name }}
-                  --creation_time {{ workflow.creationTimestamp }}
-                  --duration {{ workflow.duration }}
-                  --failures {{ workflow.failures }}"}
+                  --workflow_name {{workflow.name}}
+                  --creation_time {{workflow.creationTimestamp}}
+                  --duration {{workflow.duration}}
+                  --failures {{workflow.failures}}"}
               ]
 
       - name: python-container-3
@@ -51,5 +51,5 @@ spec:
               value: ""
         container:
           image: zackbaker/k8_argo_test:latest
-          command: [python, "{{ inputs.parameters.python-script }}"]
-          args: ["{{ inputs.parameters.python-args }}"]
+          command: [python, "{{inputs.parameters.python-script}}"]
+          args: ["{{inputs.parameters.python-args}}"]
