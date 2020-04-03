@@ -56,6 +56,6 @@ spec:
           args: [
             "--workflow_name", "{{workflow.name}}",
             "--creation_time", "{{workflow.creationTimestamp}}",
-            "--duration", "{{spec.metrics.prometheus.exec_duration_guage}}",
+            "--duration", "{{workflowSpec.metrics.prometheus.exec_duration_guage}}",
             "--failures", "{{workflow.failures}}"
           ]
