@@ -47,6 +47,6 @@ spec:
           command: [python, workflow_stats.py]
           args: [
             "--workflow_name", "{{workflow.name}}",
-            "--creation_time", "{{workflow.creationTimestamp.%Y-%m-%d %H:%M:%S}}",
+            "--creation_time", "{{workflow.creationTimestamp.<%Y-%m-%d %H:%M:%S>}}",
             "--failures", "{{workflow.failures}}"
           ]
