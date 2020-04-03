@@ -48,6 +48,7 @@ spec:
           parameters:
             - name: python-script
             - name: python-args
+              value: ""
         container:
           image: zackbaker/k8_argo_test:latest
           command: [python, "{{ inputs.parameters.python-script }}"]
