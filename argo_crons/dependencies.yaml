@@ -37,8 +37,8 @@ spec:
               parameters: [
                 {name: python-script, value: workflow_stats.py},
                 {name: python-args, value: "
-                  --workflow_name {{workflow.name}}
-                  --creation_time {{workflow.creationTimestamp}}"
+                  --workflow_name '{{workflow.name}}'
+                  --creation_time '{{workflow.creationTimestamp}}'"
                 }
               ]
 
