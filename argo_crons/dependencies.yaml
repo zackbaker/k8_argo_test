@@ -36,7 +36,7 @@ spec:
             arguments:
               parameters: [
                 {name: python-script, value: workflow_stats.py},
-                {name: python-args, value: ["--workflow_name test"]
+                {name: python-args, value: "--workflow_name test"
                 }
               ]
 
