@@ -34,7 +34,10 @@ spec:
           - name: record-stats
             template: python-container-3
             arguments:
-              parameters: [{name: python-script, value: workflow_stats.py}]
+              parameters: [
+                {name: python-script, value: workflow_stats.py},
+                {name: python-args, value: "--workflow_name, {{workflow.name}}}"}
+              ]
 
       - name: python-container-3
         inputs:
@@ -45,4 +48,4 @@ spec:
         container:
           image: zackbaker/k8_argo_test:latest
           command: [python, "{{inputs.parameters.python-script}}"]
-          args: ["--workflow_name", "test"]
+          args: ["{{inputs.parameters.python-script}}"]
