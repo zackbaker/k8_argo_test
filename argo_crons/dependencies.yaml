@@ -8,6 +8,7 @@ spec:
   startingDeadlineSeconds: 0
   workflowSpec:
     entrypoint: deps
+    onExit: record-stats
     templates:
       - name: deps
         dag:
@@ -31,21 +32,22 @@ spec:
             arguments:
               parameters: [{name: python-script, value: dependencies/dep_4.py}]
             dependencies: [dep-2]
-          - name: record-stats
-            template: python-container-3
-            arguments:
-              parameters: [
-                {name: python-script, value: workflow_stats.py},
-                {name: python-args, value: "--workflow_name, {{workflow.name}}}"}
-              ]
 
       - name: python-container-3
         inputs:
           parameters:
             - name: python-script
-            - name: python-args
-              value: ""
         container:
           image: zackbaker/k8_argo_test:latest
           command: [python, "{{inputs.parameters.python-script}}"]
-          args: ["{{inputs.parameters.python-script}}"]
+
+      - name: record-stats
+        container:
+          image: zackbaker/k8_argo_test:latest
+          command: [python, workflow_stats.py]
+          args: [
+            "--workflow_name", "{{workflow.name}}",
+            "--creation_time", "{{workflow.creationTimestamp}}",
+            "--duration", "{{duration}}",
+            "--failures", "{{workflow.failures}}"
+          ]
