@@ -6,9 +6,16 @@ spec:
   schedule: "*/1 * * * *"
   concurrencyPolicy: "Forbid"
   startingDeadlineSeconds: 0
+  suspend: false
   workflowSpec:
     entrypoint: deps
     onExit: record-stats
+    metrics:
+      prometheus:
+        - name: exec_duration_gauge         # Metric name (will be prepended with "argo_workflows_")
+          help: "Duration gauge by name"    # A help doc describing your metric. This is required.
+          gauge:                            # The metric type. Available are "gauge", "histogram", and "counter".
+            value: "{{workflow.duration}}"  # The value of your metric. It could be an Argo variable (see variables doc) or a literal value
     templates:
       - name: deps
         dag:
@@ -42,12 +49,13 @@ spec:
           command: [python, "{{inputs.parameters.python-script}}"]
 
       - name: record-stats
+        metrics:
         container:
           image: zackbaker/k8_argo_test:latest
           command: [python, workflow_stats.py]
           args: [
             "--workflow_name", "{{workflow.name}}",
             "--creation_time", "{{workflow.creationTimestamp}}",
-            "--duration", "{{duration}}",
+            "--duration", "{{exec_duration_gauge}}",
             "--failures", "{{workflow.failures}}"
           ]
