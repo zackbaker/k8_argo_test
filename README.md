@@ -22,7 +22,7 @@ helm repo add argo https://argoproj.github.io/argo-helm
 # Add namespace and install Argo Workflow
 # We don't use helm here so we can install 2.7.0
 kubectl create namespace argo
-helm install argo argo/argo -n argo
+kubectl apply -n argo -f https://raw.githubusercontent.com/argoproj/argo/stable/manifests/install.yaml
 
 # Add namespace and install Argo CD
 kubectl create namespace argocd

@@ -66,5 +66,6 @@ spec:
             "--workflow_name", "{{workflow.name}}",
             "--creation_time", "{{workflow.creationTimestamp}}",
             "--failures", "{{workflow.failures}}",
-            "--task_count", "{{inputs.parameters.task_count}}"
+            "--task_count", "{{inputs.parameters.task_count}}",
+            "--tasks", "{{tasks}}"
           ]
