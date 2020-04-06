@@ -57,6 +57,5 @@ spec:
           args: [
             "--workflow_name", "{{workflow.name}}",
             "--creation_time", "{{workflow.creationTimestamp}}",
-            "--end_time", $(date "+%Y-%m-%d %H.%M.%S"),
             "--failures", "{{workflow.failures}}"
           ]
