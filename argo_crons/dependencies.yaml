@@ -16,6 +16,7 @@ spec:
           help: "Duration gauge by name"    # A help doc describing your metric. This is required.
           gauge:                            # The metric type. Available are "gauge", "histogram", and "counter".
             value: "{{workflow.duration}}"  # The value of your metric. It could be an Argo variable (see variables doc) or a literal value
+            realtime: true
     templates:
       - name: deps
         dag:
@@ -56,6 +57,6 @@ spec:
           args: [
             "--workflow_name", "{{workflow.name}}",
             "--creation_time", "{{workflow.creationTimestamp}}",
-            "--duration", "{{prometheus.exec_duration_guage}}",
+            "--end_time", $(date "+%Y-%m-%d %H.%M.%S"),
             "--failures", "{{workflow.failures}}"
           ]
