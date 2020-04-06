@@ -47,7 +47,7 @@ spec:
 
       - name: failure
         container:
-          image: zackbaker/k8_argo_test:latest
+          image: debian:9.4
           command: ["exit 1"]
 
       - name: record-stats
