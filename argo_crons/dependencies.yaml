@@ -10,9 +10,6 @@ spec:
   workflowSpec:
     entrypoint: deps
     onExit: record-stats
-    arguments:
-      - name: job_count
-        value: 5 # Set this to how many tasks there are
     templates:
       - name: deps
         dag:
@@ -61,6 +58,7 @@ spec:
         inputs:
           parameters:
             - name: task_count
+              value: 5 #TODO: set to task count from dag
         container:
           image: zackbaker/k8_argo_test:latest
           command: [python, workflow_stats.py]
