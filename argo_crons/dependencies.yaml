@@ -10,13 +10,6 @@ spec:
   workflowSpec:
     entrypoint: deps
     onExit: record-stats
-    metrics:
-      prometheus:
-        - name: exec_duration_gauge         # Metric name (will be prepended with "argo_workflows_")
-          help: "Duration gauge by name"    # A help doc describing your metric. This is required.
-          gauge:                            # The metric type. Available are "gauge", "histogram", and "counter".
-            value: "{{workflow.duration}}"  # The value of your metric. It could be an Argo variable (see variables doc) or a literal value
-            realtime: true
     templates:
       - name: deps
         dag:
@@ -40,6 +33,9 @@ spec:
               arguments:
                 parameters: [{name: python-script, value: dependencies/dep_4.py}]
               dependencies: [dep-2]
+            - name: dep-5
+              template: failure
+              dependencies: [dep-4]
 
       - name: python-container-3
         inputs:
@@ -48,6 +44,11 @@ spec:
         container:
           image: zackbaker/k8_argo_test:latest
           command: [python, "{{inputs.parameters.python-script}}"]
+
+      - name: failure
+        container:
+          image: zackbaker/k8_argo_test:latest
+          command: ["exit 1"]
 
       - name: record-stats
         metrics:
