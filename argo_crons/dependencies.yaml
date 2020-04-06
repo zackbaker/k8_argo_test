@@ -44,11 +44,15 @@ spec:
         container:
           image: zackbaker/k8_argo_test:latest
           command: [python, "{{inputs.parameters.python-script}}"]
+        retryStrategy:
+          limit: 3
 
       - name: failure
         container:
           image: debian:9.4
           command: ["exit(1)"]
+        retryStrategy:
+          limit: 3
 
       - name: record-stats
         metrics:
