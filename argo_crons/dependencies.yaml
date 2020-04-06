@@ -48,7 +48,7 @@ spec:
       - name: failure
         container:
           image: debian:9.4
-          command: ["exit 1"]
+          command: ["exit(1)"]
 
       - name: record-stats
         metrics:
