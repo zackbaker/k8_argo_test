@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: CronWorkflow
 metadata:
-  name: dependencies
+  name: showing-dependencies
 spec:
   schedule: "*/1 * * * *"
   concurrencyPolicy: "Forbid"
