@@ -8,6 +8,8 @@ import json
 def run():
     args = set_arguments()
 
+    workflow_name = get_name(args.workflow_name)
+
     end_time = dt.datetime.strptime(dt.datetime.now(pytz.utc).strftime('%Y-%m-%d %H:%M:%S'), '%Y-%m-%d %H:%M:%S')
     creation_time = get_creation_time(args.creation_time)
     time_diff = end_time - creation_time
@@ -17,7 +19,7 @@ def run():
 
     print(
         'parent_job: ',
-        'job: ' + args.workflow_name,
+        'job: ' + workflow_name,
         'job_id: 123456',
         'success: ' + str(success_count),
         'retry_count: ' + str(retry_count),
@@ -39,6 +41,11 @@ def set_arguments():
     parser.add_argument('--failures', type=str, help='Job Failures')
     parser.add_argument('--tasks', type=str, help='DAG tasks')
     return parser.parse_args()
+
+
+def get_name(name):
+    name_parts = name.split('-')
+    return name_parts[:len(name_parts) - 1].join('-')
 
 
 def get_creation_time(time_str):

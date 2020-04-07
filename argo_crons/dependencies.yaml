@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: CronWorkflow
 metadata:
-  name: dependencies
+  name: showing-dependencies
 spec:
   schedule: "*/1 * * * *"
   concurrencyPolicy: "Forbid"
@@ -9,9 +9,9 @@ spec:
   suspend: false
   workflowSpec:
     entrypoint: deps
-    onExit: record-stats
+    onExit: record-stats # Run stats template after DAG finishes
     templates:
-      - name: deps
+      - name: deps # Shows dependencies in DAG
         dag:
           tasks:
             - name: dep-1
@@ -37,7 +37,7 @@ spec:
               template: failure
               dependencies: [dep-4]
 
-      - name: python-container-3
+      - name: python-container-3 # python 3 container that accepts different scripts as arguments
         inputs:
           parameters:
             - name: python-script
@@ -47,14 +47,14 @@ spec:
         retryStrategy:
           limit: 1
 
-      - name: failure
+      - name: failure # purposely fails to show failure and retry counts for workflow stats
         container:
           image: debian:9.4
           command: ["exit(1)"]
         retryStrategy:
           limit: 1
 
-      - name: record-stats
+      - name: record-stats # Exit template to record workflow stats
         inputs:
           parameters:
             - name: task_count
