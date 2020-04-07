@@ -45,7 +45,7 @@ def set_arguments():
 
 def get_name(name):
     name_parts = name.split('-')
-    return name_parts[:len(name_parts) - 1].join('-')
+    return '-'.join(name_parts[:len(name_parts) - 1])
 
 
 def get_creation_time(time_str):
