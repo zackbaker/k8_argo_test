@@ -45,14 +45,14 @@ spec:
           image: zackbaker/k8_argo_test:latest
           command: [python, "{{inputs.parameters.python-script}}"]
         retryStrategy:
-          limit: 3
+          limit: 1
 
       - name: failure
         container:
           image: debian:9.4
           command: ["exit(1)"]
         retryStrategy:
-          limit: 3
+          limit: 1
 
       - name: record-stats
         inputs:
@@ -67,5 +67,4 @@ spec:
             "--creation_time", "{{workflow.creationTimestamp}}",
             "--failures", "{{workflow.failures}}",
             "--task_count", "{{inputs.parameters.task_count}}",
-            "--tasks", "{{tasks}}"
           ]
